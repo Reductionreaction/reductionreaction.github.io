@@ -370,6 +370,7 @@ alexNet : 2012 端到端：gpu relu dropout
 选出k个邻居，进行投票
 
 ```python
+
 def predice(self,X):
     num_test = X.shape[0]
     Ypred = np.zeros(num_test,dtype=self.ytr.dtype)
@@ -380,14 +381,19 @@ def predice(self,X):
         Ypred[i]=self.ytr[min_index]
         
     return Ypred
+
+distances = np.sum(np.abs(self.Xtr-X[i,:]),axis=1) #这是1-nn算法
+
 ```
 
 时间复杂度：训练$O(1)$,预测$O(M*N*D+M*Nlogk)$
-
 问题：超参数（或模型）的选择，距离度量$L_1,L_2$
 
 - 1近邻有哪些问题：有可能过拟合，对于噪声比较敏感
+
 - k个邻居属于k个类：加权投票，距离较近的权重更高；增加k值；选择频率较高的类别
+
+  问题：k个邻居属于k个类，超参数（或模型）的选择，距离度量$L_1,L_2$
 
 - 在验证集上选择超参数
 
@@ -398,6 +404,7 @@ def predice(self,X):
 - 不要直接使用像素间的距离进行度量（泛化性与稳定性较差）
 
 ### 线性分类器
+
 $$
 \text{f}^{3 \times 1}(x,W) = W^{3 \times 3072}x^{3072 \times 1}
 $$
@@ -416,12 +423,13 @@ x是$32*32*3$的矩阵
 $$
 L = \frac{1}{N}\sum_{i}L_i(f(x_i,y_i),y_i)
 $$
-**多分类SVM loss**
+多分类SVM loss：
+
+
 
 ![image-20241219230433413](https://s2.loli.net/2024/12/19/MRaTWDYpHkf7SlQ.png)
 
 1是松弛条件，可以换成别的。
-
 线性分类器 softmax loss:
 
 **交叉熵损失**
@@ -1428,6 +1436,9 @@ $h_t$梯度会总是小于1,因此容易造成梯度消失的问题
 ![image-20241224233944573](https://s2.loli.net/2024/12/24/IWgmhZCUjNTsHyf.png)
 
 ![image-20241224234055456](https://s2.loli.net/2024/12/24/LNZfaD8ozmWjBRu.png)
+=======
+
+>>>>>>> 99b30156f20b7735c36fda86bf15341872767ad8
 
 ## Transformer
 
@@ -1437,6 +1448,7 @@ cross-attention: 依赖两个输入
 
 CNN -> Attention -> CNN -> predict -> (loss)  
 
+<<<<<<< HEAD
 ![image-20241225150334989](https://s2.loli.net/2024/12/25/q9NXdsHWE6lVneZ.png)
 
 注意力机制分为两步
@@ -1880,6 +1892,15 @@ Downstream Task：想要应用的任务，没有大规模的数据集，数据�
 
 
 <font size = 5 font color = blue>**如何进行评估？**</font>
+=======
+## 自监督学习
+
+pretext Task
+
+Downstream Task
+
+如何进行评估？
+>>>>>>> 99b30156f20b7735c36fda86bf15341872767ad8
 
 - pretext性能：但是应用范围比较窄，重点还是在下游任务的性能上
 - **特征质量**（in-domain上的性能--同分布的数据集）：评测时把自监督学习好的模型作为特征提取器，训练一层线性分类器，根据线性分类器的效果来评价自监督学习性能
@@ -1887,6 +1908,7 @@ Downstream Task：想要应用的任务，没有大规模的数据集，数据�
 - 计算效率：训练时间和训练所需的资源
 - 迁移学习和下游任务性能
 
+<<<<<<< HEAD
 使用少量有标签的数据在目标任务上训练浅层网络
 
 ![image-20241226230143401](https://s2.loli.net/2024/12/26/HkSF6Gg8uBrIKOe.png)
@@ -2077,3 +2099,5 @@ ImageBind: 使用一个特征空间来连接所有的模态
 
 - 便于in-context learning: 提供上下文，使得模型能够理解人类意图
 - 交互式用户友好：人与人工智能的多轮交互对于复杂任务十分重要
+=======
+>>>>>>> 99b30156f20b7735c36fda86bf15341872767ad8
